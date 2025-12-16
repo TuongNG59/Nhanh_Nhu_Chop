@@ -1,6 +1,7 @@
 package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import clc65.tuongng59.nguyenhuynhtuong.project_android.database.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,5 +44,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
             startActivity(intent);
         });
+
+
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close();
     }
 }

@@ -1,6 +1,7 @@
 package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import clc65.tuongng59.nguyenhuynhtuong.project_android.database.DBHelper;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -55,6 +58,11 @@ public class PlayActivity extends AppCompatActivity {
         btnB.setOnClickListener(v -> checkAnswer("B"));
         btnC.setOnClickListener(v -> checkAnswer("C"));
         btnD.setOnClickListener(v -> checkAnswer("D"));
+
+
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close();
     }
 
     void startTimer() {

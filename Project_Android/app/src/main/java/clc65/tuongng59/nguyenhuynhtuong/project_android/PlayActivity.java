@@ -87,6 +87,15 @@ public class PlayActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+
+
+        // Lưu score vào SQLite
+        DBHelper dbHelper = new DBHelper(this);
+        String playTime = String.valueOf(System.currentTimeMillis());
+        dbHelper.insertScore(score, playTime);
+
+
+        //Gửi dữ liệu điểm
         Intent intent = new Intent(PlayActivity.this, ResultActivity.class);
         intent.putExtra("SCORE", score);
         startActivity(intent);
@@ -114,5 +123,7 @@ public class PlayActivity extends AppCompatActivity {
 
         correctAnswer = "B";
     }
+
+
 
 }

@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 
@@ -62,11 +66,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
+
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "HH:mm - dd/MM/yyyy",
+                Locale.getDefault()
+        );
+
+
         if (cursor.moveToFirst()) {
             do {
                 int score = cursor.getInt(0);
-                String time = cursor.getString(1);
-                list.add("Score: " + score + " | Time: " + time);
+                long timeMillis = Long.parseLong(cursor.getString(1));
+
+                String formattedTime = sdf.format(new Date(timeMillis));
+
+                list.add("Score: " + score + " | " + formattedTime);
             } while (cursor.moveToNext());
         }
 

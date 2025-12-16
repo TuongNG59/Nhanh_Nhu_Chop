@@ -1,5 +1,6 @@
 package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -78,6 +79,9 @@ public class PlayActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+        Intent intent = new Intent(PlayActivity.this, ResultActivity.class);
+        intent.putExtra("SCORE", score);
+        startActivity(intent);
         finish();
     }
 

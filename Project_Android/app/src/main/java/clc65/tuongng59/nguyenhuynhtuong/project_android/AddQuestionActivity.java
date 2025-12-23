@@ -30,8 +30,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
-
-
         edtQuestion = findViewById(R.id.edtQuestion);
         edtA = findViewById(R.id.edtA);
         edtB = findViewById(R.id.edtB);
@@ -58,7 +56,28 @@ public class AddQuestionActivity extends AppCompatActivity {
 
             if (q != null) {
                 edtQuestion.setText(q.question);
+                edtA.setText(q.optionA);
+                edtB.setText(q.optionB);
+                edtC.setText(q.optionC);
+                edtD.setText(q.optionD);
+
+                //Set đáp án đúng
+                switch (q.correct) {
+                    case "A":
+                        rgCorrect.check(R.id.rbA);
+                        break;
+                    case "B":
+                        rgCorrect.check(R.id.rbB);
+                        break;
+                    case "C":
+                        rgCorrect.check(R.id.rbC);
+                        break;
+                    case "D":
+                        rgCorrect.check(R.id.rbD);
+                        break;
+                }
             }
+
         }
     }
 

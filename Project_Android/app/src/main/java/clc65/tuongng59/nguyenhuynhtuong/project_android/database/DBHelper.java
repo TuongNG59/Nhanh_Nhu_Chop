@@ -155,7 +155,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public Question getQuestionById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM QUESTION WHERE id = ?",
+                "SELECT id, question, optionA, optionB, optionC, optionD, correct " +
+                        "FROM QUESTION WHERE id = ?",
                 new String[]{String.valueOf(id)}
         );
 
@@ -164,7 +165,12 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             q = new Question(
                     cursor.getInt(0),
-                    cursor.getString(1)
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6)
             );
         }
 
@@ -172,6 +178,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return q;
     }
+
 
     public void updateQuestion(int id, String question,
                                String a, String b, String c, String d,

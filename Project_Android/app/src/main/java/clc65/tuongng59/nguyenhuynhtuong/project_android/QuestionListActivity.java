@@ -2,6 +2,7 @@ package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,7 +22,7 @@ import clc65.tuongng59.nguyenhuynhtuong.project_android.database.DBHelper;
 public class QuestionListActivity extends AppCompatActivity {
 
     ListView lvQuestion;
-    Button btnAdd;
+    Button btnAdd, btnBack;
     ArrayList<Question> questionList;
     ArrayAdapter<Question> adapter;
     DBHelper dbHelper;
@@ -33,6 +34,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
         lvQuestion = findViewById(R.id.lvQuestion);
         btnAdd = findViewById(R.id.btnAdd);
+        btnBack = findViewById(R.id.btnBack);
 
         dbHelper = new DBHelper(this);
 
@@ -49,6 +51,14 @@ public class QuestionListActivity extends AppCompatActivity {
             Intent intent = new Intent(QuestionListActivity.this, AddQuestionActivity.class);
             startActivity(intent);
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         //Bắt sự kiện long click
         lvQuestion.setOnItemLongClickListener((parent, view, position, id) -> {
@@ -97,5 +107,6 @@ public class QuestionListActivity extends AppCompatActivity {
         questionList.addAll(dbHelper.getAllQuestions());
         adapter.notifyDataSetChanged();
     }
+
 
 }

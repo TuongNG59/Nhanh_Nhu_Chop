@@ -1,6 +1,7 @@
 package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -19,7 +20,7 @@ public class AddQuestionActivity extends AppCompatActivity {
 
     EditText edtQuestion, edtA, edtB, edtC, edtD;
     RadioGroup rgCorrect;
-    Button btnSave;
+    Button btnSave, btnBack;
 
     int questionId = -1;
 
@@ -29,6 +30,8 @@ public class AddQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
+
+
         edtQuestion = findViewById(R.id.edtQuestion);
         edtA = findViewById(R.id.edtA);
         edtB = findViewById(R.id.edtB);
@@ -36,8 +39,16 @@ public class AddQuestionActivity extends AppCompatActivity {
         edtD = findViewById(R.id.edtD);
         rgCorrect = findViewById(R.id.rgCorrect);
         btnSave = findViewById(R.id.btnSave);
+        btnBack = findViewById(R.id.btnBack);
 
         btnSave.setOnClickListener(v -> saveQuestion());
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         questionId = getIntent().getIntExtra("QUESTION_ID", -1);
 
@@ -77,4 +88,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         Toast.makeText(this, "Đã lưu câu hỏi", Toast.LENGTH_SHORT).show();
         finish();
     }
+
+
 }

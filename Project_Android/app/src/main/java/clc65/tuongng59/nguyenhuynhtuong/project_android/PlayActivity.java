@@ -1,13 +1,12 @@
 package clc65.tuongng59.nguyenhuynhtuong.project_android;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,7 +26,10 @@ public class PlayActivity extends AppCompatActivity {
 
     //Tính điểm
     int score = 0;
-    String correctAnswer = "A";
+
+    DBHelper dbHelper;
+    Question currentQuestion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +45,16 @@ public class PlayActivity extends AppCompatActivity {
         btnC = findViewById(R.id.btnC);
         btnD = findViewById(R.id.btnD);
 
-
-        //Dữ liệu giả để test
-        tvQuestion.setText("Con gì kêu meo meo?");
-        btnA.setText("Con mèo");
-        btnB.setText("Con chó");
-        btnC.setText("Con trâu");
-        btnD.setText("Con vịt");
-
         startTimer();
-
 
         btnA.setOnClickListener(v -> checkAnswer("A"));
         btnB.setOnClickListener(v -> checkAnswer("B"));
         btnC.setOnClickListener(v -> checkAnswer("C"));
         btnD.setOnClickListener(v -> checkAnswer("D"));
 
+        dbHelper = new DBHelper(this);
+        loadNextQuestion();
 
-        DBHelper dbHelper = new DBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.close();
     }
 
     void startTimer() {
@@ -103,8 +95,8 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
-    void checkAnswer(String selectedAnswer) {
-        if (selectedAnswer.equals(correctAnswer)) {
+    void checkAnswer(String selected) {
+        if (selected.equals(currentQuestion.correct)) {
             score++;
             tvScore.setText("Score: " + score);
             loadNextQuestion();
@@ -115,14 +107,21 @@ public class PlayActivity extends AppCompatActivity {
 
 
     void loadNextQuestion() {
-        tvQuestion.setText("Con gì kêu gâu gâu?");
-        btnA.setText("Con mèo");
-        btnB.setText("Con chó");
-        btnC.setText("Con trâu");
-        btnD.setText("Con vịt");
+        currentQuestion = dbHelper.getRandomQuestion();
 
-        correctAnswer = "B";
+        if (currentQuestion == null) {
+            Toast.makeText(this, "Chưa có câu hỏi", Toast.LENGTH_SHORT).show();
+            endGame();
+            return;
+        }
+
+        tvQuestion.setText(currentQuestion.question);
+        btnA.setText(currentQuestion.optionA);
+        btnB.setText(currentQuestion.optionB);
+        btnC.setText(currentQuestion.optionC);
+        btnD.setText(currentQuestion.optionD);
     }
+
 
 
 }

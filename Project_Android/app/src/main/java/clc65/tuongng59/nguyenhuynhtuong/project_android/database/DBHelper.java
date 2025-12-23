@@ -35,6 +35,20 @@ public class DBHelper extends SQLiteOpenHelper {
                         "play_time TEXT" +
                         ")";
         db.execSQL(sqlCreateTable);
+
+
+        String sqlQuestion =
+                "CREATE TABLE IF NOT EXISTS QUESTION (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "question TEXT, " +
+                        "optionA TEXT, " +
+                        "optionB TEXT, " +
+                        "optionC TEXT, " +
+                        "optionD TEXT, " +
+                        "correct TEXT" +
+                        ")";
+        db.execSQL(sqlQuestion);
+
     }
 
 
@@ -87,6 +101,44 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return list;
+    }
+
+
+    public ArrayList<String> getAllQuestionText() {
+        ArrayList<String> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT question FROM QUESTION",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                String question = cursor.getString(0);
+                list.add(question);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+
+    public void insertQuestion(String question, String a, String b, String c, String d, String correct) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("question", question);
+        values.put("optionA", a);
+        values.put("optionB", b);
+        values.put("optionC", c);
+        values.put("optionD", d);
+        values.put("correct", correct);
+
+        db.insert("QUESTION", null, values);
+        db.close();
     }
 
 }

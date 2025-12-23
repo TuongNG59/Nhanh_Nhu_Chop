@@ -21,6 +21,8 @@ public class AddQuestionActivity extends AppCompatActivity {
     RadioGroup rgCorrect;
     Button btnSave;
 
+    int questionId = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,17 @@ public class AddQuestionActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(v -> saveQuestion());
+
+        questionId = getIntent().getIntExtra("QUESTION_ID", -1);
+
+        if (questionId != -1) {
+            DBHelper dbHelper = new DBHelper(this);
+            Question q = dbHelper.getQuestionById(questionId);
+
+            if (q != null) {
+                edtQuestion.setText(q.question);
+            }
+        }
     }
 
 
@@ -56,8 +69,11 @@ public class AddQuestionActivity extends AppCompatActivity {
         String correct = rb.getText().toString();
 
         DBHelper dbHelper = new DBHelper(this);
-        dbHelper.insertQuestion(question, a, b, c, d, correct);
-
+        if (questionId == -1) {
+            dbHelper.insertQuestion(question, a, b, c, d, correct);
+        } else {
+            dbHelper.updateQuestion(questionId, question, a, b, c, d, correct);
+        }
         Toast.makeText(this, "Đã lưu câu hỏi", Toast.LENGTH_SHORT).show();
         finish();
     }

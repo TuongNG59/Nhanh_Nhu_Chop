@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,8 +22,8 @@ public class QuestionListActivity extends AppCompatActivity {
 
     ListView lvQuestion;
     Button btnAdd;
-    ArrayList<String> questionList;
-    ArrayAdapter<String> adapter;
+    ArrayList<Question> questionList;
+    ArrayAdapter<Question> adapter;
     DBHelper dbHelper;
 
     @Override
@@ -34,7 +36,7 @@ public class QuestionListActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        questionList = dbHelper.getAllQuestionText();
+        questionList = dbHelper.getAllQuestions();
 
         adapter = new ArrayAdapter<>(
                 this,
@@ -47,13 +49,53 @@ public class QuestionListActivity extends AppCompatActivity {
             Intent intent = new Intent(QuestionListActivity.this, AddQuestionActivity.class);
             startActivity(intent);
         });
+
+        //Bắt sự kiện long click
+        lvQuestion.setOnItemLongClickListener((parent, view, position, id) -> {
+
+            Question q = questionList.get(position);
+
+            String[] options = {"Sửa", "Xóa"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(QuestionListActivity.this);
+            builder.setTitle("Chọn thao tác");
+            builder.setItems(options, (dialog, which) -> {
+
+                if (which == 1) { // XÓA
+                    deleteQuestion(q.id);
+                }
+
+                if (which == 0) { // SỬA
+                    Intent intent = new Intent(
+                            QuestionListActivity.this,
+                            AddQuestionActivity.class
+                    );
+                    intent.putExtra("QUESTION_ID", q.id);
+                    startActivity(intent);
+                }
+            });
+
+            builder.show();
+            return true;
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         questionList.clear();
-        questionList.addAll(dbHelper.getAllQuestionText());
+        questionList.addAll(dbHelper.getAllQuestions());
         adapter.notifyDataSetChanged();
     }
+
+
+    void deleteQuestion(int id) {
+        DBHelper dbHelper = new DBHelper(this);
+        dbHelper.deleteQuestion(id);
+
+        questionList.clear();
+        questionList.addAll(dbHelper.getAllQuestions());
+        adapter.notifyDataSetChanged();
+    }
+
 }

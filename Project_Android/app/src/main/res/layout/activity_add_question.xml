@@ -23,35 +23,43 @@
             android:id="@+id/edtQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nội dung câu hỏi"/>
+            android:hint="Nội dung câu hỏi"
+            android:inputType="textMultiLine|textCapSentences"
+            android:imeOptions="flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:gravity="top|start"/>
 
 
         <EditText
             android:id="@+id/edtA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Đáp án A"/>
+            android:hint="Đáp án A"
+            android:inputType="textNoSuggestions"/>
 
 
         <EditText
             android:id="@+id/edtB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Đáp án B"/>
+            android:hint="Đáp án B"
+            android:inputType="textNoSuggestions"/>
 
 
         <EditText
             android:id="@+id/edtC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Đáp án C"/>
+            android:hint="Đáp án C"
+            android:inputType="textNoSuggestions"/>
 
 
         <EditText
             android:id="@+id/edtD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Đáp án D"/>
+            android:hint="Đáp án D"
+            android:inputType="textNoSuggestions"/>
 
 
         <RadioGroup

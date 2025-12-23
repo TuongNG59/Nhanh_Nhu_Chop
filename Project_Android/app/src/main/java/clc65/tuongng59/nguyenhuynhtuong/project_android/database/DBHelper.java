@@ -13,6 +13,8 @@ import java.util.Locale;
 
 import androidx.annotation.Nullable;
 
+import clc65.tuongng59.nguyenhuynhtuong.project_android.Question;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     // Tên DB & version
@@ -104,19 +106,20 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<String> getAllQuestionText() {
-        ArrayList<String> list = new ArrayList<>();
+    public ArrayList<Question> getAllQuestions() {
+        ArrayList<Question> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
-                "SELECT question FROM QUESTION",
+                "SELECT id, question FROM QUESTION",
                 null
         );
 
         if (cursor.moveToFirst()) {
             do {
-                String question = cursor.getString(0);
-                list.add(question);
+                int id = cursor.getInt(0);
+                String question = cursor.getString(1);
+                list.add(new Question(id, question));
             } while (cursor.moveToNext());
         }
 
@@ -140,5 +143,59 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert("QUESTION", null, values);
         db.close();
     }
+
+    //Xóa
+    public void deleteQuestion(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("QUESTION", "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    //Sửa
+    public Question getQuestionById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM QUESTION WHERE id = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        Question q = null;
+
+        if (cursor.moveToFirst()) {
+            q = new Question(
+                    cursor.getInt(0),
+                    cursor.getString(1)
+            );
+        }
+
+        cursor.close();
+        db.close();
+        return q;
+    }
+
+    public void updateQuestion(int id, String question,
+                               String a, String b, String c, String d,
+                               String correct) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("question", question);
+        values.put("optionA", a);
+        values.put("optionB", b);
+        values.put("optionC", c);
+        values.put("optionD", d);
+        values.put("correct", correct);
+
+        db.update(
+                "QUESTION",
+                values,
+                "id = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        db.close();
+    }
+
 
 }

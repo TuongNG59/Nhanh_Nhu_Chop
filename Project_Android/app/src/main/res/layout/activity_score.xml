@@ -6,14 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ScoreActivity"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Danh sách điểm"
-        android:textSize="22sp"
+        android:textColor="#2EFF00"
+        android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +38,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Về màn hình chính"
+        android:textColor="#2EFF00"
+        android:backgroundTint="#0A4011"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <!-- Tiêu đề -->
@@ -16,7 +17,8 @@
         android:text="Nhanh Như Chớp"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="#0066CC"
+        android:textAllCaps="true"
+        android:textColor="#1ED91E"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,11 +42,12 @@
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chơi Ngay"
-            android:textSize="18sp"
-            android:backgroundTint="#0099FF"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="20dp"/>
+            android:text="CHƠI NGAY"
+            android:textSize="20dp"
+            android:textColor="#2EFF00"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#0A4011"/>
 
         <!-- Nút quản lý câu hỏi -->
         <Button
@@ -52,9 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quản Lý Câu Hỏi"
-            android:textSize="18sp"
-            android:backgroundTint="#00CC66"
-            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:backgroundTint="#0A4011"
+            android:textColor="#2EFF00"
             android:layout_marginBottom="20dp"/>
 
         <!-- Nút xem bảng điểm -->
@@ -63,9 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bảng Điểm"
-            android:textSize="18sp"
-            android:backgroundTint="#FF9900"
-            android:textColor="#FFFFFF"/>
+            android:textSize="18dp"
+            android:backgroundTint="#0A4011"
+            android:textColor="#2EFF00"/>
 
     </LinearLayout>
 

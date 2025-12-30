@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="@color/black">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh sách câu hỏi"
-        android:textSize="20sp"
+        android:textSize="20dp"
+        android:textColor="#2EFF00"
         android:textStyle="bold"
         android:gravity="center"/>
 
@@ -23,12 +25,16 @@
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm câu hỏi"/>
+        android:text="Thêm câu hỏi"
+        android:textColor="#2EFF00"
+        android:backgroundTint="#0A4011"/>
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quay lại"/>
+        android:text="Quay lại"
+        android:textColor="#2EFF00"
+        android:backgroundTint="#0A4011"/>
 
 </LinearLayout>

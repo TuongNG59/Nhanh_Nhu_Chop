@@ -12,6 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import clc65.tuongng59.nguyenhuynhtuong.project_android.database.DBHelper;
 
 public class PlayActivity extends AppCompatActivity {
@@ -29,6 +32,10 @@ public class PlayActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
     Question currentQuestion;
+
+    //Chống lặp lại câu hỏi
+    ArrayList<Question> questionList;
+    int currentIndex = 0;
 
 
     @Override
@@ -53,6 +60,13 @@ public class PlayActivity extends AppCompatActivity {
         btnD.setOnClickListener(v -> checkAnswer("D"));
 
         dbHelper = new DBHelper(this);
+        // Lấy toàn bộ câu hỏi
+        questionList = dbHelper.getAllQuestionsFull();
+
+        // Trộn thứ tự câu hỏi
+        Collections.shuffle(questionList);
+
+        // Load câu đầu tiên
         loadNextQuestion();
 
     }
@@ -107,13 +121,14 @@ public class PlayActivity extends AppCompatActivity {
 
 
     void loadNextQuestion() {
-        currentQuestion = dbHelper.getRandomQuestion();
-
-        if (currentQuestion == null) {
-            Toast.makeText(this, "Chưa có câu hỏi", Toast.LENGTH_SHORT).show();
+        if (currentIndex >= questionList.size()) {
+            // Hết câu hỏi
             endGame();
             return;
         }
+
+        currentQuestion = questionList.get(currentIndex);
+        currentIndex++;
 
         tvQuestion.setText(currentQuestion.question);
         btnA.setText(currentQuestion.optionA);
@@ -121,7 +136,5 @@ public class PlayActivity extends AppCompatActivity {
         btnC.setText(currentQuestion.optionC);
         btnD.setText(currentQuestion.optionD);
     }
-
-
 
 }

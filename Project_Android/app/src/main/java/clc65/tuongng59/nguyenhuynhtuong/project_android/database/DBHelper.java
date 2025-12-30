@@ -227,33 +227,35 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Question getRandomQuestion() {
+
+    public ArrayList<Question> getAllQuestionsFull() {
+        ArrayList<Question> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
-                "SELECT id, question, optionA, optionB, optionC, optionD, correct " +
-                        "FROM QUESTION ORDER BY RANDOM() LIMIT 1",
+                "SELECT * FROM QUESTION",
                 null
         );
 
-
-        Question q = null;
-
         if (cursor.moveToFirst()) {
-            q = new Question(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getString(6)
-            );
+            do {
+                Question q = new Question(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6)
+                );
+                list.add(q);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return q;
+        return list;
     }
+
 
 }

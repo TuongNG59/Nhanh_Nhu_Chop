@@ -51,6 +51,29 @@ public class DBHelper extends SQLiteOpenHelper {
                         ")";
         db.execSQL(sqlQuestion);
 
+        db.execSQL(
+                "INSERT INTO QUESTION (question, optionA, optionB, optionC, optionD, correct) VALUES " +
+                        "('Android là gì?', 'Hệ điều hành', 'Ngôn ngữ', 'Trình duyệt', 'Phần mềm diệt virus', 'A')," +
+                        "('Android Studio dùng để làm gì?', 'Thiết kế web', 'Lập trình Android', 'Soạn thảo văn bản', 'Chơi game', 'B')," +
+                        "('Activity trong Android là gì?', 'Cơ sở dữ liệu', 'Một màn hình giao diện', 'File XML', 'Service', 'B')," +
+                        "('File nào dùng để thiết kế giao diện?', 'Java', 'XML', 'SQL', 'JSON', 'B')," +
+                        "('SQLite là gì?', 'Server', 'API', 'CSDL cục bộ', 'Framework', 'C')," +
+                        "('Ngôn ngữ phổ biến để lập trình Android là?', 'C++', 'Java', 'Python', 'PHP', 'B')," +
+                        "('AndroidManifest.xml dùng để làm gì?', 'Thiết kế giao diện', 'Khai báo thành phần ứng dụng', 'Lưu dữ liệu', 'Viết logic', 'B')," +
+                        "('View dùng để hiển thị văn bản là?', 'Button', 'ImageView', 'TextView', 'ListView', 'C')," +
+                        "('ListView dùng để làm gì?', 'Hiển thị ảnh', 'Hiển thị danh sách', 'Nhập dữ liệu', 'Phát nhạc', 'B')," +
+                        "('Adapter trong Android dùng để?', 'Kết nối dữ liệu với giao diện', 'Kết nối Internet', 'Quản lý bộ nhớ', 'Tạo database', 'A')," +
+                        "('Intent dùng để làm gì?', 'Lưu dữ liệu', 'Chuyển màn hình', 'Thiết kế UI', 'Chạy timer', 'B')," +
+                        "('CountDownTimer dùng để?', 'Đếm click', 'Đếm thời gian ngược', 'Đếm câu hỏi', 'Đếm điểm', 'B')," +
+                        "('Button là gì?', 'Văn bản', 'Hình ảnh', 'Nút bấm', 'Danh sách', 'C')," +
+                        "('XML trong Android chủ yếu dùng để?', 'Viết logic', 'Thiết kế giao diện', 'Lưu điểm', 'Kết nối server', 'B')," +
+                        "('SQLiteOpenHelper dùng để?', 'Tạo giao diện', 'Quản lý CSDL SQLite', 'Kết nối mạng', 'Chạy service', 'B')," +
+                        "('RadioButton dùng khi nào?', 'Chọn nhiều đáp án', 'Chọn một đáp án', 'Hiển thị ảnh', 'Nhập văn bản', 'B')," +
+                        "('Toast dùng để?', 'Hiển thị thông báo nhanh', 'Lưu dữ liệu', 'Chuyển màn hình', 'Chạy game', 'A')," +
+                        "('finish() trong Activity dùng để?', 'Tạo Activity', 'Đóng Activity hiện tại', 'Lưu dữ liệu', 'Chạy nền', 'B')," +
+                        "('RecyclerView khác ListView ở điểm nào?', 'Không cuộn', 'Tối ưu hiệu năng hơn', 'Không cần adapter', 'Không layout', 'B')," +
+                        "('APK là gì?', 'File cài đặt Android', 'File giao diện', 'File database', 'File ảnh', 'A')"
+        );
     }
 
 
